@@ -6,42 +6,23 @@ var data = [
     { name: "Olivia", gender: "F", state: "FL", orders: 7 }
 ];
 
-var isArray = function (myArray) {
-    return myArray.constructor.toString().indexOf("Array") > -1;
-}
-
-var anyOf = function (arrayIn, anyOfArray) {
-    for (var i = 0; i < anyOfArray.length; i++) {
-        var a = anyOfArray[i]
-        if (arrayIn.indexOf(a) > -1)
-            return true;
-    }
-    return false;
-};
-
-var isMatch = function (objA, objB, props, options) {
+var isMatch = function (objA, objB, props) {
     var isMatch = true;
     for (var i = 0; i < props.length; i++) {
         var prop = props[i];
         var valueA = objA[prop];
         var valueB = objB[prop];
-        if (isArray(valueA) && options && options.array && options.array == 'any') {
-            if (!anyOf(valueA, valueB))
-                return false;
-            else
-                continue;
-        }
-        else if (valueA != valueB)
+        if (valueA != valueB)
             return false;
     }
     return true;
 };
 
-var matches = function (data, obj, props, options) {
+var matches = function (data, obj, props) {
     var result = [];
     for (var i = 0; i < data.length; i++) {
         var row = data[i];
-        if (isMatch(row, obj, props, options))
+        if (isMatch(row, obj, props))
             result.push(row);
     }
     return result;
@@ -55,7 +36,7 @@ var exists = function (data, value) {
     return false;
 };
 
-var group = function (data, properties, options) {
+var group = function (data, properties) {
     var result = []
     for (var i = 0; i < data.length; i++) {
         var row = data[i];
@@ -66,7 +47,7 @@ var group = function (data, properties, options) {
         }
         if (done)
             continue;
-        result.push(matches(data, row, properties, options))
+        result.push(matches(data, row, properties))
     }
     return result;
 };
