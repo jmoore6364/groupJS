@@ -68,11 +68,6 @@ var group = function (data, properties, options) {
             continue;
         result.push(matches(data, row, properties, options))
     }
-    for (var i = 0; i < result.length; i++) {
-        for (var x = 0; x < result[i].length; x++) {
-            delete result[i][x].done;
-        }
-    }
     return result;
 };
 
