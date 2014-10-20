@@ -84,7 +84,7 @@ var flatten = function (data, props, sumProps) {
             var prop = props[x];
             var a = propData[prop];
             var b = row[prop];
-            if (!exists(a, b))
+            if (!exists(a, b) && b != '')
                 a.push(b);
         }
 
@@ -109,7 +109,10 @@ var getValues = function (data, props) {
     var result = {};
     for (var i = 0; i < props.length; i++) {
         var prop = props[i];
-        result[prop] = [data[prop]];
+        if (data[prop] == '')
+            result[prop] = [];
+        else
+            result[prop] = [data[prop]];
     }
     return result;
 };
